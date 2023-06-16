@@ -267,7 +267,7 @@ if __name__ == '__main__':
 
 # eigen face 
 	eigenvectors_pca, feature_mean = PCA(X_train, 25)
-	show_face(eigenvectors, 25, 0)
+	show_face(eigenvectors_pca, 25, 0)
 	show_reconstruction(X_train, feature_mean, eigenvectors_pca, 0)
 
 # Fisher face
