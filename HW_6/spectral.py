@@ -24,7 +24,7 @@ def visuailize_eigen_space(k, normalization, eigen_vectors, labels):
 		ax = fig.add_subplot(111)
 		markers = ['o','^']
 		for marker,i in zip(markers,np.arange(2)):
-				ax.scatter(U[:,0][labels==i],U[:,1][labels==i],marker=marker)
+			ax.scatter(U[:,0][labels==i],U[:,1][labels==i],marker=marker)
 		plt.title('2D representation of Eigenspace coordinates')
 		ax.set_xlabel('1st Eigenvector')
 		ax.set_ylabel('2nd Eigenvector')
@@ -33,7 +33,7 @@ def visuailize_eigen_space(k, normalization, eigen_vectors, labels):
 		ax = fig.add_subplot(111,projection='3d')
 		markers = ['o','^','s']
 		for marker, i in zip(markers, np.arange(3)):
-				ax.scatter(U[:,0][labels==i],U[:,1][labels==i],U[:,2][labels==i],marker=marker)
+			ax.scatter(U[:,0][labels==i],U[:,1][labels==i],U[:,2][labels==i],marker=marker)
 		plt.title('3D representation of Eigenspace coordinates')
 		ax.set_xlabel('1st Eigenvector')
 		ax.set_ylabel('2nd Eigenvector')

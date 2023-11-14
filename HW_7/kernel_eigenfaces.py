@@ -10,23 +10,23 @@ from PIL import Image
 shape = (100,100)
 
 def read_image(img_path):
-    img = Image.open(img_path)
-    img = img.resize(shape, Image.Resampling.LANCZOS)
-    img = np.array(img)
-    label_temp = img_path.split('/')
-    label = label_temp[-1][7:9]
-    return img.ravel().astype(np.float64), int(label)    
+	img = Image.open(img_path)
+	img = img.resize(shape, Image.Resampling.LANCZOS)
+	img = np.array(img)
+	label_temp = img_path.split('/')
+	label = label_temp[-1][7:9]
+	return img.ravel().astype(np.float64), int(label)    
 
 
 def read_data(dataset_path='./Yale_Face_Database/Training/'):
-    all_img = []
-    all_filename = []
-    all_label = []
-    for filename in os.listdir(dataset_path):
-        img, label = read_image(join(dataset_path, filename))
-        all_img.append(img)
-        all_label.append(label)
-    return np.array(all_img), np.array(all_label)
+	all_img = []
+	all_filename = []
+	all_label = []
+	for filename in os.listdir(dataset_path):
+			img, label = read_image(join(dataset_path, filename))
+			all_img.append(img)
+			all_label.append(label)
+	return np.array(all_img), np.array(all_label)
 
 
 def PCA(X, num_components=0):
@@ -70,27 +70,27 @@ def LDA(X, y, num_components=25):
 
 
 def fisherfaces(X, y, num_components=0):
-		# (135,2500)
-		n, d = X.shape
-		c = len(np.unique(y))
-		# (2500,120)
-		eigenvectors_pca, feature_mean = PCA(X, (n - c))
-		# (135,120)
-		X_pca = (X-feature_mean)@eigenvectors_pca
-		# (120,25)
-		eigenvectors_lda = LDA(X_pca, y, num_components)
-		# (2500,25)
-		eigenvectors = eigenvectors_pca @ eigenvectors_lda
-		return eigenvectors, feature_mean
+	# (135,2500)
+	n, d = X.shape
+	c = len(np.unique(y))
+	# (2500,120)
+	eigenvectors_pca, feature_mean = PCA(X, (n - c))
+	# (135,120)
+	X_pca = (X-feature_mean)@eigenvectors_pca
+	# (120,25)
+	eigenvectors_lda = LDA(X_pca, y, num_components)
+	# (2500,25)
+	eigenvectors = eigenvectors_pca @ eigenvectors_lda
+	return eigenvectors, feature_mean
 
 
 def show_face(X, components=25, type=0):
 	l = int(np.sqrt(components))
 	for i in range(components):
-			plt.subplot(l,l,i+1)
-			plt.imshow(X[:,i].reshape(shape),cmap='gray')
-			plt.xticks(fontsize=5)
-			plt.yticks(fontsize=5)
+		plt.subplot(l,l,i+1)
+		plt.imshow(X[:,i].reshape(shape),cmap='gray')
+		plt.xticks(fontsize=5)
+		plt.yticks(fontsize=5)
 			
 	plt.subplots_adjust(left=0.125,
 											bottom=0.1, 
@@ -114,14 +114,14 @@ def show_reconstruction(X, feature_mean, eigenvectors, type=0):
 
 
 	for i in range(10):
-			plt.subplot(2,10,i+1)
-			plt.imshow(X_reconstruction[i,:].reshape(shape),cmap='gray')
-			plt.xticks(fontsize=5)
-			plt.yticks(fontsize=5)
-			plt.subplot(2,10,10+(i+1))
-			plt.imshow(X_selected[i,:].reshape(shape),cmap='gray')
-			plt.xticks(fontsize=5)
-			plt.yticks(fontsize=5)
+		plt.subplot(2,10,i+1)
+		plt.imshow(X_reconstruction[i,:].reshape(shape),cmap='gray')
+		plt.xticks(fontsize=5)
+		plt.yticks(fontsize=5)
+		plt.subplot(2,10,10+(i+1))
+		plt.imshow(X_selected[i,:].reshape(shape),cmap='gray')
+		plt.xticks(fontsize=5)
+		plt.yticks(fontsize=5)
 			
 	plt.subplots_adjust(left=0.125,
 											bottom=1.0, 

@@ -8,7 +8,6 @@ from PIL import Image
 
 
 def Hbeta(D=np.array([]), beta=1.0):
-    # Compute P-row and corresponding perplexity
     P = np.exp(-D.copy() * beta)
     sumP = sum(P)
     # 這個應該是 perplexity

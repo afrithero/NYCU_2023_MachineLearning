@@ -12,7 +12,7 @@ def kernel(img, gamma_s, gamma_c):
 	pixel_coordinates = np.zeros((n,2))
 	# 產生座標
 	for i in range(n):
-			pixel_coordinates[i] = [i//100,i%100]
+		pixel_coordinates[i] = [i//100,i%100]
 	spatial_dist = np.sum(pixel_coordinates ** 2, axis=1).reshape(-1, 1) + np.sum(pixel_coordinates ** 2, axis=1) - 2 * pixel_coordinates @ pixel_coordinates.T
 	# cv2 讀進來是 uint，所以要轉
 	color_dist = np.sum(np.float32(img) ** 2, axis=1).reshape(-1,1) + np.sum(np.float32(img) ** 2, axis=1) - 2 * np.float32(img) @ np.float32(img).T
@@ -25,9 +25,9 @@ def load_image(path):
 	return img, height, width
 
 def process_gif(color_map,gif_path):
-    for i in range(len(color_map)):
-        color_map[i] = color_map[i].transpose(1, 0, 2)
-    write_gif(color_map, gif_path, fps=2)	
+	for i in range(len(color_map)):
+		color_map[i] = color_map[i].transpose(1, 0, 2)
+	write_gif(color_map, gif_path, fps=2)	
 
 class KMeans:
 	def __init__(self, centroid_method, img, height, width, n_cluster):
@@ -61,7 +61,7 @@ class KMeans:
 			X_std=np.std(self.img,axis=0)
 			# 每個 channel 隨機採樣 k 個值
 			for channel in range(n_features):
-					centroids[:,channel]=np.random.normal(X_mean[channel],X_std[channel],size=self.n_cluster)
+				centroids[:,channel]=np.random.normal(X_mean[channel],X_std[channel],size=self.n_cluster)
 
 		return centroids
 
